@@ -1,0 +1,18 @@
+/* Gaya latar belakang untuk tampilan komputer */
+.container {
+    background-image: url('images/desktop.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Gaya latar belakang untuk tampilan perangkat seluler (misalnya, lebar maksimum 600px) */
+@media (max-width: 600px) {
+    .container {
+        background-image: url('images/hp.jpg');
+    }
+}

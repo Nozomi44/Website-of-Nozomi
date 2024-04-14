@@ -1,0 +1,58 @@
+body {
+  overflow: hidden;
+}
+
+.snowflakes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.snowflake {
+  position: absolute;
+  width: 25px; /* Atur ukuran ikon salju */
+  height: 25px; /* Atur ukuran ikon salju */
+  background-image: url('images/snow.png'); /* Ganti dengan URL gambar salju */
+  background-size: cover;
+  animation: snow 10s linear infinite;
+}
+
+@keyframes snow {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
+/* Properti animasi dan penundaan untuk setiap salju */
+.snowflake1 {
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.snowflake2 {
+  left: 20%;
+  animation-delay: 1s;
+}
+
+.snowflake3 {
+  left: 30%;
+  animation-delay: 2s;
+}
+
+.snowflake4 {
+  left: 40%;
+  animation-delay: 3s;
+}
+
+.snowflake5 {
+  left: 50%;
+  animation-delay: 4s;
+}
+
+/* Tambahkan lebih banyak class dan atur properti animasi sesuai keinginanmu */

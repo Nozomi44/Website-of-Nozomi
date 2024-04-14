@@ -1,0 +1,36 @@
+/* Style untuk ikon */
+.icon-container {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -100px; /* Mulai di luar layar */
+    transition: right 0.3s ease;
+}
+
+.icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    overflow: hidden; /* Agar gambar tidak keluar dari batas ukuran ikon */
+    opacity: 0; /* Mulai dengan opasitas 0 */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateX(100px); /* Mulai dari posisi yang tersembunyi */
+}
+
+.icon img {
+    width: 100%; /* Gambar ikon diatur agar mengisi seluruh ruang pada div .icon */
+    height: 100%;
+    object-fit: cover; /* Untuk menyesuaikan proporsi gambar */
+}
+
+/* Menampilkan ikon saat container ditampilkan */
+.icon-container.show {
+    right: 0;
+}
+
+/* Menampilkan ikon secara bertahap */
+.icon.show {
+    opacity: 1;
+    transform: translateX(0);
+}

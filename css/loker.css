@@ -1,0 +1,29 @@
+.popup-icons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column-reverse; /* Mengubah orientasi menjadi vertikal dari bawah ke atas */
+  }
+  
+  .popup-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 10px; /* Memberi jarak antar ikon */
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .popup-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .popup-icon:hover {
+    transform: scale(1.1);
+  }
+  
