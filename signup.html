@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup with Google</title>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+</head>
+<body>
+  <h1>Signup with Google</h1>
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  
+  <script>
+    function onSignIn(googleUser) {
+      // User is signed in.
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId());
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail());
+      
+      // You can now send the user's data to your server for registration.
+    }
+  </script>
+</body>
+</html>

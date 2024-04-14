@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Nozomi Member Login</title>
+	<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+	<div class="box">
+		<form action="login.php" method="post">
+			<h2>Nozomi Member</h2>
+			<div class="inputBox">
+				<input type="text" name="username" required="required">
+				<span>Username</span>
+				<i></i>
+			</div>
+			<div class="inputBox">
+				<input type="password" name="password" required="required">
+				<span>Password</span>
+				<i></i>
+			</div>
+			<div class="links">
+				<a href="lupa.html">Forgot Password ?</a>
+				<a href="signup.html">Signup</a>
+			</div>
+			<input type="submit" value="Login">
+		</form>
+	</div>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Snowfall Effect</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: ;
+    }
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="snowfall"></canvas>
+  <script>
+    // Inisialisasi
+    const canvas = document.getElementById('snowfall');
+    const ctx = canvas.getContext('2d');
+    
+    // Mengatur ukuran canvas sesuai dengan ukuran jendela
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    // Array untuk menyimpan setiap butir salju
+    const flakes = [];
+    
+    // Membuat butir salju
+    function createFlake() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 3 + 1,
+        speedX: Math.random() * 3 - 1.5,
+        speedY: Math.random() * 3 + 1,
+      };
+    }
+    
+    // Menambahkan butir salju ke dalam array
+    for (let i = 0; i < 100; i++) {
+      flakes.push(createFlake());
+    }
+    
+    // Fungsi untuk menggambar butir salju
+    function drawFlakes() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#ffffff';
+      for (let i = 0; i < flakes.length; i++) {
+        const flake = flakes[i];
+        ctx.beginPath();
+        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      moveFlakes();
+    }
+    
+    // Fungsi untuk menggerakkan butir salju
+    function moveFlakes() {
+      for (let i = 0; i < flakes.length; i++) {
+        const flake = flakes[i];
+        flake.x += flake.speedX;
+        flake.y += flake.speedY;
+        
+        // Jika butir salju melewati batas layar, reset posisi ke atas
+        if (flake.y > canvas.height) {
+          flakes[i] = createFlake();
+          flakes[i].x = Math.random() * canvas.width;
+          flakes[i].y = 0;
+        }
+      }
+    }
+    
+    // Fungsi untuk memperbarui efek salju setiap frame
+    function update() {
+      drawFlakes();
+      requestAnimationFrame(update);
+    }
+    
+    update();
+    
+    // Responsif saat ukuran jendela berubah
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
