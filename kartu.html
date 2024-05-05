@@ -486,20 +486,10 @@ yes</h2>
 <head>
   <title></title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    
+
     .color-picker {
-      position: absolute;
+      position: fixed; 
       bottom: 20px;
       right: 20px;
       width: 50px;
@@ -507,6 +497,7 @@ yes</h2>
       border-radius: 50%;
       background-color: #ccc; 
       cursor: pointer;
+      z-index: 100; 
     }
   </style>
 </head>
@@ -515,19 +506,15 @@ yes</h2>
   <input type="color" id="color" style="display: none;"> 
   <div class="color-picker" onclick="document.getElementById('color').click()"></div>
   
+  <div class="main-content">
+    </div>
+
   <script>
     const colorInput = document.getElementById("color");
     colorInput.addEventListener("input", () => {
       document.body.style.backgroundColor = colorInput.value;
     });
   </script>
-</body>
-</html>
-
-        </div>
-      </div>
-    </div>
-    
 </body>
 </html>
 
