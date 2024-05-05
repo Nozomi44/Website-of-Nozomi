@@ -520,3 +520,52 @@ yes</h2>
 
 
     
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flip Card</title>
+  <style>
+    /* Styles untuk flip card */
+    /* ... */
+    /* Styles untuk tombol acak */
+    .shuffle-button {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      padding: 10px 20px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .shuffle-button:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <!-- Daftar kartu flashcard -->
+  <div class="wrapper">
+    <!-- ... -->
+  </div>
+
+  <!-- Tombol untuk mengacak urutan kartu -->
+  <button class="shuffle-button" onclick="shuffleCards()">Acak Kartu</button>
+
+  <!-- Script JavaScript untuk mengacak urutan kartu -->
+  <script>
+    function shuffleCards() {
+      var cards = document.querySelectorAll('.card');
+      var parent = document.querySelector('.wrapper');
+      for (var i = cards.length - 1; i > 0; i--) {
+        var randomIndex = Math.floor(Math.random() * (i + 1));
+        parent.insertBefore(cards[randomIndex], cards[i]);
+      }
+    }
+  </script>
+</body>
+</html>
