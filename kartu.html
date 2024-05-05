@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <h2>FLIPCARD HIRAGANA HAND MADE</h2>
-	<h3>Mohon Maaf dikarenakan ini Website buatan sendiri, jadi kemungkinan masih banyak kekurangan dan bug</h3>
 	<h3><MARQUEE>Mohon Maaf dikarenakan ini Website buatan sendiri, jadi kemungkinan masih banyak kekurangan dan bug</h3></MARQUEE>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -481,6 +480,31 @@ yes</h2>
               card.classList.toggle('is-flipped');
             }
           </script>
+
+	  <!DOCTYPE HTML>
+<html>
+<head>
+<style type="text/css">
+body {
+background-color: black;
+transition: background-color 5s;
+}
+</style>
+</head>
+<body>
+<script type="text/javascript">
+var colors = ["white", "red"];
+var i = 1;
+window.setInterval(function(){
+document.body.style.backgroundColor = colors[i];
+i++;
+if (i === colors.length){
+i=0;
+}
+}, 5000);
+</script>
+</body>
+</html>
         </div>
       </div>
     </div>
