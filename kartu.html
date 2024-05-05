@@ -482,12 +482,9 @@ yes</h2>
           </script>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Color picker</title>
+  <title></title>
   <style>
     * {
       margin: 0;
@@ -497,82 +494,33 @@ yes</h2>
     body {
       width: 100%;
       height: 100vh;
-      background-color: red;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .wrapper {
-      position: relative; /* Make the wrapper relative to position the color picker absolutely */
-      width: 100%;
-      height: 100vh;
-      background-color: rgba(255,255,255,0.3);
-    }
-
-    .color-picker-icon {
-      position: absolute; /* Position the color picker icon absolutely */
+    .color-picker {
+      position: absolute;
       bottom: 20px;
-      right: 20px; /* Place it at the bottom right corner */
+      right: 20px;
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: red;
+      background-color: #ccc; 
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .color-picker-icon::after {
-      content: '';
-      display: block;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background-color: white;
-    }
-
-    .popup {
-      position: absolute; /* Position the popup absolutely */
-      bottom: 60px; /* Adjust the bottom position based on the color picker icon's height */
-      right: 20px; /* Align with the color picker icon's right position */
-      display: none;
-      background-color: white;
-      border-radius: 5px;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-      padding: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="color-picker-icon" id="colorPickerIcon">
-      </div>
-    <input type="color" id="color" class="popup">
-  </div>
-
+  <h1></h1>
+  <input type="color" id="color" style="display: none;"> 
+  <div class="color-picker" onclick="document.getElementById('color').click()"></div>
+  
   <script>
     const colorInput = document.getElementById("color");
-    const colorPickerIcon = document.getElementById("colorPickerIcon");
-
-    colorPickerIcon.addEventListener("click", () => {
-      colorInput.style.display = colorInput.style.display === "none" ? "block" : "none";
-    });
-
     colorInput.addEventListener("input", () => {
-      const colorCode = document.getElementById("color").value;
-      document.body.style.backgroundColor = colorCode;
-      colorPickerIcon.style.backgroundColor = colorCode;
-    });
-
-    // Close the popup when clicking outside
-    document.addEventListener("click", (event) => {
-      if (event.target !== colorPickerIcon && event.target !== colorInput) {
-        colorInput.style.display = "none";
-      }
+      document.body.style.backgroundColor = colorInput.value;
     });
   </script>
-
 </body>
 </html>
 
