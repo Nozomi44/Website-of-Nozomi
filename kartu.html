@@ -7,6 +7,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/7fda679519.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="kartu.css">
+	<!DOCTYPE html>
+<html>
+<head>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    #txt {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 2em;
+    }
+
+    #date {
+      position: fixed;
+      top: 80px;
+      right: 10px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body onload="startTime()">
+
+<div id="txt"></div>
+<div id="date"></div>
+
+<script>
+function startTime() {
+  const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+  const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+  
+  const today = new Date();
+  let h = today.getHours();
+  let m = today.getMinutes();
+  let s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('txt').innerHTML =  h + ":" + m + ":" + s;
+
+  const day = days[today.getDay()];
+  const date = today.getDate();
+  const month = months[today.getMonth()];
+  const year = today.getFullYear();
+  document.getElementById('date').innerHTML = day + ", " + date + " " + month + " " + year;
+
+  setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+</script>
+
+</body>
+</html>
   <title>Flip Card</title>
 </head>
 <body>
