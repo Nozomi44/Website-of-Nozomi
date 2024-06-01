@@ -1613,51 +1613,7 @@ Politeknik Takumi adalah perguruan tinggi yang menerapkan pembelajaran Learning 
 
 
 
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title>Pengecekan Status Login</title>
-</head>
-
-<body>
-    <h1></h1>
-    <p id="statusText"></p>
-
-    <script>
-        // Fungsi untuk memeriksa status login
-        function cekStatusLogin() {
-            // Cek apakah ada cookie 'login_status'
-            const loginStatus = getCookie('login_status');
-            
-            if (loginStatus === 'loggedin') {
-                document.getElementById("statusText").textContent = "";
-            } else {
-                document.getElementById("statusText").textContent = "";
-                // Redirect ke halaman login.html jika tidak login
-                window.location.href = "login.html";
-            }
-        }
-
-        // Fungsi untuk mendapatkan nilai cookie berdasarkan namanya
-        function getCookie(name) {
-            const cookieName = name + "=";
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                let cookie = cookies[i].trim();
-                if (cookie.indexOf(cookieName) === 0) {
-                    return cookie.substring(cookieName.length, cookie.length);
-                }
-            }
-            return "";
-        }
-
-        // Panggil fungsi cekStatusLogin saat halaman dimuat
-        cekStatusLogin();
-    </script>
-</body>
-
-</html>
 
 <!DOCTYPE html>
 <html>
