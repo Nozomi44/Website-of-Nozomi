@@ -1,125 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Nozomi Member Login</title>
-	<link rel="stylesheet" href="css/login.css">
-</head>
-<body>
-	<div class="box">
-		<form action="login.php" method="post">
-			<h2>Nozomi Member</h2>
-			<div class="inputBox">
-				<input type="text" name="username" required="required">
-				<span>Username</span>
-				<i></i>
-			</div>
-			<div class="inputBox">
-				<input type="password" name="password" required="required">
-				<span>Password</span>
-				<i></i>
-			</div>
-			<div class="links">
-				<a href="lupa.html">Forgot Password ?</a>
-				<a href="signup.html">Signup</a>
-			</div>
-			<input type="submit" value="Login">
-		</form>
-	</div>
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
   <meta charset="UTF-8">
-  <title>Snowfall Effect</title>
-  <style>
-    body {
-      margin: 0;
-      overflow: ;
-    }
-    canvas {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  </style>
-</head>
-<body>
-  <canvas id="snowfall"></canvas>
-  <script>
-    // Inisialisasi
-    const canvas = document.getElementById('snowfall');
-    const ctx = canvas.getContext('2d');
-    
-    // Mengatur ukuran canvas sesuai dengan ukuran jendela
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    // Array untuk menyimpan setiap butir salju
-    const flakes = [];
-    
-    // Membuat butir salju
-    function createFlake() {
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 3 + 1,
-        speedX: Math.random() * 3 - 1.5,
-        speedY: Math.random() * 3 + 1,
-      };
-    }
-    
-    // Menambahkan butir salju ke dalam array
-    for (let i = 0; i < 100; i++) {
-      flakes.push(createFlake());
-    }
-    
-    // Fungsi untuk menggambar butir salju
-    function drawFlakes() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#ffffff';
-      for (let i = 0; i < flakes.length; i++) {
-        const flake = flakes[i];
-        ctx.beginPath();
-        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      moveFlakes();
-    }
-    
-    // Fungsi untuk menggerakkan butir salju
-    function moveFlakes() {
-      for (let i = 0; i < flakes.length; i++) {
-        const flake = flakes[i];
-        flake.x += flake.speedX;
-        flake.y += flake.speedY;
-        
-        // Jika butir salju melewati batas layar, reset posisi ke atas
-        if (flake.y > canvas.height) {
-          flakes[i] = createFlake();
-          flakes[i].x = Math.random() * canvas.width;
-          flakes[i].y = 0;
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <script src="https://unpkg.com/unlazy@0.11.3/dist/unlazy.with-hashing.iife.js" defer init></script>
+  <script type="text/javascript">
+    window.tailwind.config = {
+      darkMode: ['class'],
+      theme: {
+        extend: {
+          colors: {
+            border: 'hsl(var(--border))',
+            input: 'hsl(var(--input))',
+            ring: 'hsl(var(--ring))',
+            background: 'hsl(var(--background))',
+            foreground: 'hsl(var(--foreground))',
+            primary: {
+              DEFAULT: 'hsl(var(--primary))',
+              foreground: 'hsl(var(--primary-foreground))'
+            },
+            secondary: {
+              DEFAULT: 'hsl(var(--secondary))',
+              foreground: 'hsl(var(--secondary-foreground))'
+            },
+            destructive: {
+              DEFAULT: 'hsl(var(--destructive))',
+              foreground: 'hsl(var(--destructive-foreground))'
+            },
+            muted: {
+              DEFAULT: 'hsl(var(--muted))',
+              foreground: 'hsl(var(--muted-foreground))'
+            },
+            accent: {
+              DEFAULT: 'hsl(var(--accent))',
+              foreground: 'hsl(var(--accent-foreground))'
+            },
+            popover: {
+              DEFAULT: 'hsl(var(--popover))',
+              foreground: 'hsl(var(--popover-foreground))'
+            },
+            card: {
+              DEFAULT: 'hsl(var(--card))',
+              foreground: 'hsl(var(--card-foreground))'
+            },
+          },
         }
       }
     }
-    
-    // Fungsi untuk memperbarui efek salju setiap frame
-    function update() {
-      drawFlakes();
-      requestAnimationFrame(update);
-    }
-    
-    update();
-    
-    // Responsif saat ukuran jendela berubah
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
   </script>
+  <style type="text/tailwindcss">
+    @layer base {
+      :root {
+        --background: 0 0% 100%;
+        --foreground: 240 10% 3.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 240 10% 3.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 240 10% 3.9%;
+        --primary: 240 5.9% 10%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 240 4.8% 95.9%;
+        --secondary-foreground: 240 5.9% 10%;
+        --muted: 240 4.8% 95.9%;
+        --muted-foreground: 240 3.8% 46.1%;
+        --accent: 240 4.8% 95.9%;
+        --accent-foreground: 240 5.9% 10%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 5.9% 90%;
+        --input: 240 5.9% 90%;
+        --ring: 240 5.9% 10%;
+        --radius: 0.5rem;
+      }
+      .dark {
+        --background: 240 10% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 240 10% 3.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 240 10% 3.9%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 240 5.9% 10%;
+        --secondary: 240 3.7% 15.9%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 240 3.7% 15.9%;
+        --muted-foreground: 240 5% 64.9%;
+        --accent: 240 3.7% 15.9%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 3.7% 15.9%;
+        --input: 240 3.7% 15.9%;
+        --ring: 240 4.9% 83.9%;
+      }
+    }
+  </style>
+  <script>
+    async function handleLogin(event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username && password) {
+        const response = await fetch('login.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({ username, password })
+        });
+
+        const result = await response.text();
+
+        if (result === 'success') {
+          window.location.href = 'index.html';
+        } else {
+          alert('Login failed. Please check your username and password.');
+        }
+      } else {
+        alert('Please fill in both fields.');
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="flex h-screen bg-background">
+    <div class="w-1/2 bg-primary p-10 flex flex-col justify-center">
+      <h1 class="text-3xl font-bold text-primary-foreground mb-4">Log in.</h1>
+      <p class="text-muted-foreground mb-6">Log in with your data that you entered during registration.</p>
+      <form onsubmit="handleLogin(event)">
+        <div class="mb-4">
+          <label class="block text-muted-foreground mb-1" for="username">Username</label>
+          <input type="text" id="username" class="w-full p-2 border border-border rounded-lg bg-input" placeholder="Enter your username" required />
+        </div>
+        <div class="mb-4">
+          <label class="block text-muted-foreground mb-1" for="password">Password</label>
+          <input type="password" id="password" class="w-full p-2 border border-border rounded-lg bg-input" placeholder="Enter your password" required />
+        </div>
+        <div class="flex items-center mb-4">
+          <input type="checkbox" id="keep-logged-in" class="mr-2" />
+          <label for="keep-logged-in" class="text-muted-foreground">Keep me logged in</label>
+        </div>
+        <button type="submit" class="w-full bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded-lg">Log In</button>
+      </form>
+      <a href="lupa.html" class="text-muted-foreground mt-4 block">Forgot your password?</a>
+    </div>
+    <div class="hidden lg:block w-1/2 bg-cover bg-center" style="background-image: url('https://placehold.co/600x800');">
+      <img src="https://openui.fly.dev/openui/24x24.svg?text=🖼️" alt="Education background" aria-hidden="true" />
+    </div>
+  </div>
 </body>
 </html>
