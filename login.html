@@ -104,13 +104,23 @@
       const password = document.getElementById('password').value;
 
       if (username && password) {
+        console.log('Sending login request...');
         const response = await fetch('login.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: new URLSearchParams({ username, password })
         });
 
+        console.log('Received response:', response);
+
+        if (!response.ok) {
+          console.error('Network response was not ok');
+          alert('Network response was not ok');
+          return;
+        }
+
         const result = await response.json();
+        console.log('Result:', result);
 
         if (result.status === 'success') {
           window.location.href = 'index.html';
