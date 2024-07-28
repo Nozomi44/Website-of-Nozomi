@@ -110,9 +110,9 @@
           body: new URLSearchParams({ username, password })
         });
 
-        const result = await response.text();
+        const result = await response.json();
 
-        if (result === 'success') {
+        if (result.status === 'success') {
           window.location.href = 'index.html';
         } else {
           alert('Login failed. Please check your username and password.');
