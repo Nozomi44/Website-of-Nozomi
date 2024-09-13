@@ -4,8 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
     <script src="https://unpkg.com/unlazy@0.11.3/dist/unlazy.with-hashing.iife.js" defer init></script>
+    <!-- Library untuk screenshot -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    
+
     <script type="text/javascript">
       window.tailwind.config = {
         darkMode: ['class'],
@@ -50,10 +51,12 @@
         }
       };
 
+      // Fungsi untuk menerapkan format teks
       function applyFormatting(command) {
         document.execCommand(command, false, null);
       }
 
+      // Fungsi untuk mengambil screenshot
       function takeScreenshot() {
         const noteElement = document.querySelector(".bg-card");
         html2canvas(noteElement).then(canvas => {
@@ -64,67 +67,56 @@
         });
       }
 
-      let text = "Hallo Sabina 😊 Kapanpun kamu membuka dan membaca pesan ini Terimakasih sudah menyempatkan untuk membuka website ini, gimana wawancara daftar PT nya? semoga dilancarkan sampe kamu lulus ya, sejujurnya aku tuh merasa sedih denger kamu mau kerja dan pindah jadi anak malem, karena oercaya nggak percaya kamu menjadi salah satu sumber energi aku dalam perkuliahan selama ini, oh iya ini adalah website khusus curahan hati aku yang akan aku sampaikan terus disini karena jujur aku masih tidak bisa melawan ketakutan dan besarnya rasa malu dalam diriku untuk menyampaikan nya secara langsung kepada kamu, sejujurnya kemarin aku ingin mengajak kamu dan menanyakan apakah boleh aku menelpon kamu? tapi karena aku orangnya terlalu memikirkan segalanya takutnya kamu risih apa gimana jadi aku memutuskan untuk tidak melakukannya, pesan ini tidak akan berakhir secara singkat pastinya mengandung semua curahan hatiku selama di Cikarang ini dan bertemu kamu :)";
-      let index = 0;
+      let text = "Hallo Sabina 😊 Kapanpun kamu membuka dan membaca pesan ini Terimakasih sudah menyempatkan untuk membuka website ini, Gimana wawancara daftar PT nya? semoga dilancarkan sampe kamu lulus ya Aamiin, Sejujurnya aku tuh ngerasa sedih denger kamu mau kerja dan pindah jadi anak malem, Karena percaya nggak percaya kamu itu udah jadi salah satu sumber energi aku dalam perkuliahan selama ini, Oh iya aku hampir lupa hehe ini adalah website khusus curahan hati aku yang akan aku sampaikan terus disini karena jujur aku masih nggak bisa ngelawan ketakutan dan besarnya rasa malu dalam diriku untuk nyampein nya secara langsung ke kamu, Sejujurnya kemarin aku pengen Ngajak kamu dan nanyain boleh apa enggak aku menelpon kamu? tapi karena aku orangnya terlalu memikirkan segalanya takutnya kamu risih apa gimana jadi aku memutuskan untuk tidak melakukannya, Pesan ini nggak akan berakhir secara singkat pastinya mengandung semua curahan hatiku selama di Cikarang ini dan bertemu kamu :), Pelajaran tadi pagi lumayan seru tapi disanyangkan nya kamu nggak ada tadi :( tapi allhamdulilah tadi dosen nya Pak Rizaldi katanya buat hari ini dianggap hadir aja semuanya walaupun ada yang nggak hadir";
+      let textParts = text.split(/(?<=[.,])/); // Pisahkan teks berdasarkan tanda koma dan titik
+      let partIndex = 0;
       let typingSound;
 
+      // Fungsi untuk memulai efek typewriter
       function startTypewriter() {
         const noteDiv = document.querySelector(".typewriter-text");
-        noteDiv.textContent = "";
-        typingSound = new Audio('https://www.myinstants.com/media/sounds/keyboard-typing-sound-effect.mp3');
-        typingSound.loop = true;
+        noteDiv.textContent = ""; // Kosongkan isi div untuk memulai animasi
+        typingSound = new Audio('https://www.myinstants.com/media/sounds/keyboard-typing-sound-effect.mp3'); // Efek suara typing
+        typingSound.loop = true; // Mengulang suara selama animasi berjalan
         typingSound.play();
-        index = 0;
+
         type(noteDiv);
       }
 
       function type(noteDiv) {
-        if (index < text.length) {
-          noteDiv.textContent += text.charAt(index);
-          index++;
-          setTimeout(() => type(noteDiv), 100);
-        } else {
-          typingSound.pause();
-          checkOverflow(noteDiv);
+        let currentPart = textParts[partIndex]; // Ambil bagian teks saat ini
+        let currentIndex = 0;
+
+        function typeChar() {
+          if (currentIndex < currentPart.length) {
+            noteDiv.textContent += currentPart.charAt(currentIndex);
+            currentIndex++;
+            setTimeout(typeChar, 100); // Atur kecepatan mengetik (ms)
+          } else {
+            typingSound.pause(); // Hentikan suara ketika teks selesai
+            document.getElementById('nextBtn').style.display = 'block'; // Tampilkan tombol "Next" setelah bagian selesai
+          }
         }
+
+        typeChar();
       }
 
-      function checkOverflow(noteDiv) {
-        if (noteDiv.scrollHeight > noteDiv.clientHeight) {
-          document.getElementById('nextBtn').style.display = 'block';
-        }
-      }
-
+      // Fungsi untuk melanjutkan teks
       function showNextText() {
-        const noteDiv = document.querySelector(".typewriter-text");
-        document.getElementById('nextBtn').style.display = 'none';
-        noteDiv.textContent = "";
-        if (index < text.length) {
-          typingSound.play();
-          type(noteDiv);
+        partIndex++;
+        if (partIndex < textParts.length) {
+          const noteDiv = document.querySelector(".typewriter-text");
+          document.getElementById('nextBtn').style.display = 'none'; // Sembunyikan tombol "Next"
+          noteDiv.textContent = ""; // Kosongkan teks
+          typingSound.play(); // Mulai ulang suara typing
+          type(noteDiv); // Lanjutkan ke bagian teks berikutnya
         }
       }
 
+      // Memulai animasi typewriter ketika halaman dimuat
       window.onload = function() {
-        startTypewriter();
+        startTypewriter(); // Jalankan fungsi typewriter begitu halaman dimuat
       };
-
-      function showLoveAnimation() {
-        const body = document.querySelector("body");
-        const love = document.createElement("div");
-        love.innerHTML = "❤️";
-        love.style.position = "fixed";
-        love.style.fontSize = "2rem";
-        love.style.color = "red";
-        love.style.animation = "float 2s ease-in-out";
-        love.style.left = Math.random() * window.innerWidth + "px";
-        love.style.bottom = "0px";
-        body.appendChild(love);
-
-        setTimeout(() => {
-          love.remove();
-        }, 2000);
-      }
     </script>
 
     <style type="text/tailwindcss">
@@ -173,16 +165,6 @@
           --ring: 240 4.9% 83.9%;
         }
       }
-
-      @keyframes float {
-        0% {
-          transform: translateY(0);
-        }
-        100% {
-          transform: translateY(-200px);
-          opacity: 0;
-        }
-      }
     </style>
   </head>
   <body>
@@ -196,7 +178,7 @@
           <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded" onclick="applyFormatting('bold')">B</button>
           <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded" onclick="applyFormatting('italic')">I</button>
           <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded" onclick="applyFormatting('underline')">U</button>
-          <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded" onclick="showLoveAnimation()">❤️</button>
+          <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded">❤️</button>
         </div>
         <button class="bg-primary text-primary-foreground hover:bg-primary/80 p-2 rounded" onclick="takeScreenshot()">Screenshot</button>
       </div>
