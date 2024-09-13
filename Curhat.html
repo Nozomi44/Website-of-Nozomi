@@ -1,0 +1,206 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script src="https://unpkg.com/unlazy@0.11.3/dist/unlazy.with-hashing.iife.js" defer init></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <script type="text/javascript">
+      window.tailwind.config = {
+        darkMode: ['class'],
+        theme: {
+          extend: {
+            colors: {
+              border: 'hsl(var(--border))',
+              input: 'hsl(var(--input))',
+              ring: 'hsl(var(--ring))',
+              background: 'hsl(var(--background))',
+              foreground: 'hsl(var(--foreground))',
+              primary: {
+                DEFAULT: 'hsl(var(--primary))',
+                foreground: 'hsl(var(--primary-foreground))'
+              },
+              secondary: {
+                DEFAULT: 'hsl(var(--secondary))',
+                foreground: 'hsl(var(--secondary-foreground))'
+              },
+              destructive: {
+                DEFAULT: 'hsl(var(--destructive))',
+                foreground: 'hsl(var(--destructive-foreground))'
+              },
+              muted: {
+                DEFAULT: 'hsl(var(--muted))',
+                foreground: 'hsl(var(--muted-foreground))'
+              },
+              accent: {
+                DEFAULT: 'hsl(var(--accent))',
+                foreground: 'hsl(var(--accent-foreground))'
+              },
+              popover: {
+                DEFAULT: 'hsl(var(--popover))',
+                foreground: 'hsl(var(--popover-foreground))'
+              },
+              card: {
+                DEFAULT: 'hsl(var(--card))',
+                foreground: 'hsl(var(--card-foreground))'
+              },
+            },
+          }
+        }
+      };
+
+      function applyFormatting(command) {
+        document.execCommand(command, false, null);
+      }
+
+      function takeScreenshot() {
+        const noteElement = document.querySelector(".bg-card");
+        html2canvas(noteElement).then(canvas => {
+          const link = document.createElement("a");
+          link.href = canvas.toDataURL("image/png");
+          link.download = "screenshot.png";
+          link.click();
+        });
+      }
+
+      let text = "Hallo Sabina 😊 Kapanpun kamu membuka dan membaca pesan ini Terimakasih sudah menyempatkan untuk membuka website ini, gimana wawancara daftar PT nya? semoga dilancarkan sampe kamu lulus ya, sejujurnya aku tuh merasa sedih denger kamu mau kerja dan pindah jadi anak malem, karena oercaya nggak percaya kamu menjadi salah satu sumber energi aku dalam perkuliahan selama ini, oh iya ini adalah website khusus curahan hati aku yang akan aku sampaikan terus disini karena jujur aku masih tidak bisa melawan ketakutan dan besarnya rasa malu dalam diriku untuk menyampaikan nya secara langsung kepada kamu, sejujurnya kemarin aku ingin mengajak kamu dan menanyakan apakah boleh aku menelpon kamu? tapi karena aku orangnya terlalu memikirkan segalanya takutnya kamu risih apa gimana jadi aku memutuskan untuk tidak melakukannya, pesan ini tidak akan berakhir secara singkat pastinya mengandung semua curahan hatiku selama di Cikarang ini dan bertemu kamu :)";
+      let index = 0;
+      let typingSound;
+
+      function startTypewriter() {
+        const noteDiv = document.querySelector(".typewriter-text");
+        noteDiv.textContent = "";
+        typingSound = new Audio('https://www.myinstants.com/media/sounds/keyboard-typing-sound-effect.mp3');
+        typingSound.loop = true;
+        typingSound.play();
+        index = 0;
+        type(noteDiv);
+      }
+
+      function type(noteDiv) {
+        if (index < text.length) {
+          noteDiv.textContent += text.charAt(index);
+          index++;
+          setTimeout(() => type(noteDiv), 100);
+        } else {
+          typingSound.pause();
+          checkOverflow(noteDiv);
+        }
+      }
+
+      function checkOverflow(noteDiv) {
+        if (noteDiv.scrollHeight > noteDiv.clientHeight) {
+          document.getElementById('nextBtn').style.display = 'block';
+        }
+      }
+
+      function showNextText() {
+        const noteDiv = document.querySelector(".typewriter-text");
+        document.getElementById('nextBtn').style.display = 'none';
+        noteDiv.textContent = "";
+        if (index < text.length) {
+          typingSound.play();
+          type(noteDiv);
+        }
+      }
+
+      window.onload = function() {
+        startTypewriter();
+      };
+
+      function showLoveAnimation() {
+        const body = document.querySelector("body");
+        const love = document.createElement("div");
+        love.innerHTML = "❤️";
+        love.style.position = "fixed";
+        love.style.fontSize = "2rem";
+        love.style.color = "red";
+        love.style.animation = "float 2s ease-in-out";
+        love.style.left = Math.random() * window.innerWidth + "px";
+        love.style.bottom = "0px";
+        body.appendChild(love);
+
+        setTimeout(() => {
+          love.remove();
+        }, 2000);
+      }
+    </script>
+
+    <style type="text/tailwindcss">
+      @layer base {
+        :root {
+          --background: 0 0% 100%;
+          --foreground: 240 10% 3.9%;
+          --card: 0 0% 100%;
+          --card-foreground: 240 10% 3.9%;
+          --popover: 0 0% 100%;
+          --popover-foreground: 240 10% 3.9%;
+          --primary: 240 5.9% 10%;
+          --primary-foreground: 0 0% 98%;
+          --secondary: 240 4.8% 95.9%;
+          --secondary-foreground: 240 5.9% 10%;
+          --muted: 240 4.8% 95.9%;
+          --muted-foreground: 240 3.8% 46.1%;
+          --accent: 240 4.8% 95.9%;
+          --accent-foreground: 240 5.9% 10%;
+          --destructive: 0 84.2% 60.2%;
+          --destructive-foreground: 0 0% 98%;
+          --border: 240 5.9% 90%;
+          --input: 240 5.9% 90%;
+          --ring: 240 5.9% 10%;
+          --radius: 0.5rem;
+        }
+        .dark {
+          --background: 240 10% 3.9%;
+          --foreground: 0 0% 98%;
+          --card: 240 10% 3.9%;
+          --card-foreground: 0 0% 98%;
+          --popover: 240 10% 3.9%;
+          --popover-foreground: 0 0% 98%;
+          --primary: 0 0% 98%;
+          --primary-foreground: 240 5.9% 10%;
+          --secondary: 240 3.7% 15.9%;
+          --secondary-foreground: 0 0% 98%;
+          --muted: 240 3.7% 15.9%;
+          --muted-foreground: 240 5% 64.9%;
+          --accent: 240 3.7% 15.9%;
+          --accent-foreground: 0 0% 98%;
+          --destructive: 0 62.8% 30.6%;
+          --destructive-foreground: 0 0% 98%;
+          --border: 240 3.7% 15.9%;
+          --input: 240 3.7% 15.9%;
+          --ring: 240 4.9% 83.9%;
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-200px);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-card p-4 rounded-lg shadow-md">
+      <h2 class="text-lg font-semibold text-foreground">Today note</h2>
+      <div contenteditable="false" class="typewriter-text w-full h-32 p-2 border border-border rounded-lg focus:outline-none focus:ring focus:ring-ring overflow-hidden">
+        <!-- Teks akan dimulai di sini -->
+      </div>
+      <div class="flex justify-between mt-2">
+        <div class="flex space-x-2">
+          <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded" onclick="applyFormatting('bold')">B</button>
+          <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded" onclick="applyFormatting('italic')">I</button>
+          <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded" onclick="applyFormatting('underline')">U</button>
+          <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded" onclick="showLoveAnimation()">❤️</button>
+        </div>
+        <button class="bg-primary text-primary-foreground hover:bg-primary/80 p-2 rounded" onclick="takeScreenshot()">Screenshot</button>
+      </div>
+      <button id="nextBtn" class="bg-primary text-primary-foreground hover:bg-primary/80 p-2 rounded mt-2 hidden" onclick="showNextText()">Next</button>
+    </div>
+  </body>
+</html>
