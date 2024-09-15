@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
     <script src="https://unpkg.com/unlazy@0.11.3/dist/unlazy.with-hashing.iife.js" defer init></script>
-    <!-- Library untuk screenshot -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script type="text/javascript">
@@ -51,71 +50,143 @@
         }
       };
 
-      // Fungsi untuk menerapkan format teks
-      function applyFormatting(command) {
-        document.execCommand(command, false, null);
-      }
+      const textsByDate = {
+        "13 September 2024": "Hallo Sabina 😊 Kapanpun kamu membuka dan membaca pesan ini Terimakasih sudah menyempatkan untuk membuka website ini, Gimana wawancara daftar PT nya? semoga dilancarkan sampe kamu lulus ya Aamiin, Sejujurnya aku tuh ngerasa sedih denger kamu mau kerja dan pindah jadi anak malem, Karena percaya nggak percaya kamu itu udah jadi salah satu sumber energi aku dalam perkuliahan selama ini, Oh iya aku hampir lupa hehe ini adalah website khusus curahan hati aku yang akan aku sampaikan terus disini karena jujur aku masih nggak bisa ngelawan ketakutan dan besarnya rasa malu dalam diriku untuk nyampein nya secara langsung ke kamu, Sejujurnya kemarin aku pengen Ngajak kamu dan nanyain boleh apa enggak aku menelpon kamu? tapi karena aku orangnya terlalu memikirkan segalanya takutnya kamu risih apa gimana jadi aku memutuskan untuk tidak melakukannya, Pesan ini nggak akan berakhir secara singkat pastinya mengandung semua curahan hatiku selama di Cikarang ini dan bertemu kamu :), Pelajaran tadi pagi lumayan seru tapi disanyangkan nya kamu nggak ada tadi :( tapi allhamdulilah tadi dosen nya Pak Rizaldi katanya buat hari ini dianggap hadir aja semuanya walaupun ada yang nggak hadir",
+        "14 September 2024": "Hari ini saya merasakan ...",
+        "15 September 2024": "Ada perasaan yang tidak bisa saya sampaikan ..."
+      };
 
-      // Fungsi untuk mengambil screenshot
-      function takeScreenshot() {
-        const noteElement = document.querySelector(".bg-card");
-        html2canvas(noteElement).then(canvas => {
-          const link = document.createElement("a");
-          link.href = canvas.toDataURL("image/png");
-          link.download = "screenshot.png";
-          link.click();
-        });
-      }
-
-      let text = "Hallo Sabina 😊 Kapanpun kamu membuka dan membaca pesan ini Terimakasih sudah menyempatkan untuk membuka website ini, Gimana wawancara daftar PT nya? semoga dilancarkan sampe kamu lulus ya Aamiin, Sejujurnya aku tuh ngerasa sedih denger kamu mau kerja dan pindah jadi anak malem, Karena percaya nggak percaya kamu itu udah jadi salah satu sumber energi aku dalam perkuliahan selama ini, Oh iya aku hampir lupa hehe ini adalah website khusus curahan hati aku yang akan aku sampaikan terus disini karena jujur aku masih nggak bisa ngelawan ketakutan dan besarnya rasa malu dalam diriku untuk nyampein nya secara langsung ke kamu, Sejujurnya kemarin aku pengen Ngajak kamu dan nanyain boleh apa enggak aku menelpon kamu? tapi karena aku orangnya terlalu memikirkan segalanya takutnya kamu risih apa gimana jadi aku memutuskan untuk tidak melakukannya, Pesan ini nggak akan berakhir secara singkat pastinya mengandung semua curahan hatiku selama di Cikarang ini dan bertemu kamu :), Pelajaran tadi pagi lumayan seru tapi disanyangkan nya kamu nggak ada tadi :( tapi allhamdulilah tadi dosen nya Pak Rizaldi katanya buat hari ini dianggap hadir aja semuanya walaupun ada yang nggak hadir";
-      let textParts = text.split(/(?<=[.,])/); // Pisahkan teks berdasarkan tanda koma dan titik
-      let partIndex = 0;
+      let currentDate = "13 September 2024";
+      let text = textsByDate[currentDate];
+      let textParts = text.split(/(?<=[.,])/);
+      let partIndex = parseInt(localStorage.getItem('partIndex')) || 0;
       let typingSound;
+      let calmMusic;
 
-      // Fungsi untuk memulai efek typewriter
+      function startBackgroundMusic() {
+        calmMusic = new Audio('https://www.bensound.com/bensound-music/bensound-slowmotion.mp3');
+        calmMusic.loop = true;
+        calmMusic.play();
+
+        // Menambahkan event listener untuk mengatasi autoplay
+        document.addEventListener('click', () => {
+          calmMusic.play().catch(error => {
+            console.log('Autoplay failed, user interaction needed.');
+          });
+        }, { once: true }); // Only add this listener once
+      }
+
+      function stopBackgroundMusic() {
+        if (calmMusic) calmMusic.pause();
+      }
+
       function startTypewriter() {
         const noteDiv = document.querySelector(".typewriter-text");
-        noteDiv.textContent = ""; // Kosongkan isi div untuk memulai animasi
-        typingSound = new Audio('https://www.myinstants.com/media/sounds/keyboard-typing-sound-effect.mp3'); // Efek suara typing
-        typingSound.loop = true; // Mengulang suara selama animasi berjalan
+        noteDiv.textContent = ""; 
+        typingSound = new Audio('https://www.myinstants.com/media/sounds/keyboard-typing-sound-effect.mp3');
+        typingSound.loop = true;
         typingSound.play();
 
         type(noteDiv);
       }
 
       function type(noteDiv) {
-        let currentPart = textParts[partIndex]; // Ambil bagian teks saat ini
+        let currentPart = textParts[partIndex];
         let currentIndex = 0;
 
         function typeChar() {
           if (currentIndex < currentPart.length) {
             noteDiv.textContent += currentPart.charAt(currentIndex);
             currentIndex++;
-            setTimeout(typeChar, 100); // Atur kecepatan mengetik (ms)
+            setTimeout(typeChar, 100);
           } else {
-            typingSound.pause(); // Hentikan suara ketika teks selesai
-            document.getElementById('nextBtn').style.display = 'block'; // Tampilkan tombol "Next" setelah bagian selesai
+            typingSound.pause();
+            document.getElementById('nextBtn').style.display = 'block';
+            document.getElementById('prevBtn').style.display = partIndex > 0 ? 'block' : 'none';
+            if (currentPart.endsWith('.')) {
+              showBersambung();
+            }
           }
         }
 
         typeChar();
       }
 
-      // Fungsi untuk melanjutkan teks
-      function showNextText() {
-        partIndex++;
-        if (partIndex < textParts.length) {
-          const noteDiv = document.querySelector(".typewriter-text");
-          document.getElementById('nextBtn').style.display = 'none'; // Sembunyikan tombol "Next"
-          noteDiv.textContent = ""; // Kosongkan teks
-          typingSound.play(); // Mulai ulang suara typing
-          type(noteDiv); // Lanjutkan ke bagian teks berikutnya
+      function showBersambung() {
+        const bersambungDiv = document.querySelector(".bersambung");
+        if (!bersambungDiv) {
+          const newBersambungDiv = document.createElement("div");
+          newBersambungDiv.textContent = "Bersambung...";
+          newBersambungDiv.classList.add("animate-pulse", "text-center", "text-2xl", "font-bold", "text-primary", "bersambung");
+          document.querySelector(".bg-card").appendChild(newBersambungDiv);
         }
       }
 
-      // Memulai animasi typewriter ketika halaman dimuat
+      function clearBersambung() {
+        const bersambungDiv = document.querySelector(".bersambung");
+        if (bersambungDiv) bersambungDiv.remove();
+      }
+
+      function showNextText() {
+        clearBersambung();
+        partIndex++;
+        if (partIndex < textParts.length) {
+          const noteDiv = document.querySelector(".typewriter-text");
+          document.getElementById('nextBtn').style.display = 'none';
+          noteDiv.textContent = "";
+          typingSound.play();
+          type(noteDiv);
+        } else {
+          partIndex = 0;
+          localStorage.setItem('partIndex', partIndex);
+          showBersambung();
+          setTimeout(() => {
+            const nextDate = getNextDate(currentDate);
+            if (nextDate) {
+              currentDate = nextDate;
+              text = textsByDate[currentDate];
+              textParts = text.split(/(?<=[.,])/);
+              document.querySelector(".text-lg").textContent = `Today note ${currentDate}`;
+              clearBersambung();
+              startTypewriter();
+            }
+          }, 2000); 
+        }
+        localStorage.setItem('partIndex', partIndex);
+      }
+
+      function showPreviousText() {
+        if (partIndex > 0) {
+          partIndex--;
+          localStorage.setItem('partIndex', partIndex);
+          const noteDiv = document.querySelector(".typewriter-text");
+          document.getElementById('nextBtn').style.display = 'none';
+          noteDiv.textContent = "";
+          typingSound.play();
+          type(noteDiv);
+        }
+      }
+
+      function getNextDate(current) {
+        const dates = Object.keys(textsByDate);
+        const currentIndex = dates.indexOf(current);
+        return dates[currentIndex + 1] || null;
+      }
+
+      function takeScreenshot() {
+        const element = document.querySelector(".bg-card");
+        html2canvas(element).then(canvas => {
+          const link = document.createElement('a');
+          link.download = 'screenshot.png';
+          link.href = canvas.toDataURL();
+          link.click();
+        });
+      }
+
       window.onload = function() {
-        startTypewriter(); // Jalankan fungsi typewriter begitu halaman dimuat
+        startTypewriter();
+        // Memastikan pemutaran musik tidak dimulai secara otomatis
+        // Mulai musik hanya setelah pengguna melakukan interaksi
       };
     </script>
 
@@ -126,66 +197,28 @@
           --foreground: 240 10% 3.9%;
           --card: 0 0% 100%;
           --card-foreground: 240 10% 3.9%;
-          --popover: 0 0% 100%;
-          --popover-foreground: 240 10% 3.9%;
-          --primary: 240 5.9% 10%;
-          --primary-foreground: 0 0% 98%;
-          --secondary: 240 4.8% 95.9%;
-          --secondary-foreground: 240 5.9% 10%;
-          --muted: 240 4.8% 95.9%;
-          --muted-foreground: 240 3.8% 46.1%;
-          --accent: 240 4.8% 95.9%;
-          --accent-foreground: 240 5.9% 10%;
-          --destructive: 0 84.2% 60.2%;
-          --destructive-foreground: 0 0% 98%;
-          --border: 240 5.9% 90%;
-          --input: 240 5.9% 90%;
-          --ring: 240 5.9% 10%;
-          --radius: 0.5rem;
         }
         .dark {
           --background: 240 10% 3.9%;
           --foreground: 0 0% 98%;
-          --card: 240 10% 3.9%;
-          --card-foreground: 0 0% 98%;
-          --popover: 240 10% 3.9%;
-          --popover-foreground: 0 0% 98%;
-          --primary: 0 0% 98%;
-          --primary-foreground: 240 5.9% 10%;
-          --secondary: 240 3.7% 15.9%;
-          --secondary-foreground: 0 0% 98%;
-          --muted: 240 3.7% 15.9%;
-          --muted-foreground: 240 5% 64.9%;
-          --accent: 240 3.7% 15.9%;
-          --accent-foreground: 0 0% 98%;
-          --destructive: 0 62.8% 30.6%;
-          --destructive-foreground: 0 0% 98%;
-          --border: 240 3.7% 15.9%;
-          --input: 240 3.7% 15.9%;
-          --ring: 240 4.9% 83.9%;
         }
       }
     </style>
   </head>
+
   <body>
     <div class="bg-card p-4 rounded-lg shadow-md">
-      <h2 class="text-lg font-semibold text-foreground">Today note</h2>
-      <div contenteditable="false" class="typewriter-text w-full h-32 p-2 border border-border rounded-lg focus:outline-none focus:ring focus:ring-ring overflow-hidden">
-        <!-- Teks akan dimulai di sini -->
-      </div>
+      <h2 class="text-lg font-semibold text-foreground">Today note 13 September 2024</h2>
+      <div contenteditable="false" class="typewriter-text w-full h-32 p-2 border border-border rounded-lg focus:outline-none focus:ring focus:ring-ring overflow-hidden"></div>
       <div class="flex justify-between mt-2">
-        <div class="flex space-x-2">
-          <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded" onclick="applyFormatting('bold')">B</button>
-          <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded" onclick="applyFormatting('italic')">I</button>
-          <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded" onclick="applyFormatting('underline')">U</button>
-          <button class="bg-secondary text-secondary-foreground hover:bg-secondary/80 p-2 rounded">❤️</button>
-        </div>
-        <button class="bg-primary text-primary-foreground hover:bg-primary/80 p-2 rounded" onclick="takeScreenshot()">Screenshot</button>
+
+        <button id="prevBtn" class="btn-primary" onclick="showPreviousText()" style="display:none;">Previous</button>
+        <button id="nextBtn" class="btn-primary" onclick="showNextText()">Next</button>
       </div>
-      <button id="nextBtn" class="bg-primary text-primary-foreground hover:bg-primary/80 p-2 rounded mt-2 hidden" onclick="showNextText()">Next</button>
+      <div class="flex justify-end mt-2">
+        <button onclick="takeScreenshot()" class="btn-primary">Take Screenshot</button>
+      </div>
     </div>
-        <footer class="fixed bottom-0 w-full text-center p-4 text-muted-foreground">
-      Made by Kurumi with ❤️
-    </footer>
+    <footer class="text-center p-4 bg-muted text-muted-foreground">Made by Kurumi with❤️</footer>
   </body>
 </html>
