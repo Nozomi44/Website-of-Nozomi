@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I’m Sorry Babe 💔</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      position: relative;
+      max-width: 90%;
+      animation: floaty 3s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      color: #ff4d6d;
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4d6d;
+      animation: float 6s infinite ease-in;
+      font-size: 1.5rem;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .btn {
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #ff1f4a;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>💖 I'm Sorry Babe 💖</h1>
+    <p>
+      I know I messed up...<br>
+      I'm really really sorry for hurting you 💔<br>
+      You mean the world to me and I hate making you sad.<br>
+      Please forgive me, my love 💕<br>
+      I promise to make it up to you, and love you even more 💗
+    </p>
+    <div class="buttons">
+      <button class="btn" onclick="acceptApology()">Accept Apologies 💌</button>
+      <button class="btn" onclick="rejectApology()">Don't Accept 😢</button>
+    </div>
+  </div>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+      document.getElementById('hearts').appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(createHeart, 300);
+
+    function acceptApology() {
+      window.location.href = 'https://wa.me/6283172467653?text=I%20accept%20your%20apology%20❤️';
+    }
+
+    function rejectApology() {
+      alert("Sorry 😢 You should accept my apologies 😭");
+    }
+  </script>
+</body>
+
+</html>
