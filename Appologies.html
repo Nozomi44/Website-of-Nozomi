@@ -1,147 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I’m Sorry Babe 💔</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forgive Me 💔</title>
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(to right, #ff9a9e, #fad0c4);
-      height: 100vh;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #ffccd5, #ffe6f0);
       overflow: hidden;
+      height: 100vh;
+    }
+
+    .heart-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffccd5;
       display: flex;
-      align-items: center;
       justify-content: center;
-      text-align: center;
+      align-items: center;
+      z-index: 10;
       flex-direction: column;
+      animation: fadeIn 1.5s ease-out;
     }
 
-    .container {
-      background: white;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    .heart-logo {
+      font-size: 80px;
+      color: red;
+      animation: beat 1s infinite;
+      cursor: pointer;
+    }
+
+    .click-text {
+      margin-top: 10px;
+      color: #333;
+      font-size: 18px;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .page-container {
+      display: none;
+      width: 100%;
+      height: 100%;
       position: relative;
-      max-width: 90%;
-      animation: floaty 3s ease-in-out infinite;
-      z-index: 2;
     }
 
-    @keyframes floaty {
+    .page {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 400px;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      animation: pageTurn 0.8s ease-in-out;
+      min-height: 280px;
+    }
+
+    @keyframes pageTurn {
+      from {
+        transform: translate(-50%, -50%) scale(0.85);
+        opacity: 0;
+      }
+      to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .next-button, .accept-button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: pink;
+      border: none;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 0, 128, 0.3);
+      transition: background 0.3s;
+      display: none;
+    }
+
+    .next-button:hover, .accept-button:hover {
+      background: hotpink;
+      color: white;
+    }
+
+    .accept-button {
+      background: #ff4da6;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
 
-    h1 {
-      color: #ff4d6d;
-      font-size: 2rem;
-    }
-
-    p {
-      font-size: 1.2rem;
-      color: #555;
-    }
-
-    .hearts {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
     .heart {
       position: absolute;
-      color: #ff4d6d;
-      animation: float 6s infinite ease-in;
-      font-size: 1.5rem;
-      opacity: 0.7;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatUp 10s linear infinite;
+      opacity: 0.6;
     }
 
-    @keyframes float {
-      0% {
-        transform: translateY(100%);
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      from {
+        bottom: -10%;
         opacity: 0;
       }
-      50% {
+      to {
+        bottom: 120%;
         opacity: 1;
       }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
-    }
-
-    .buttons {
-      margin-top: 20px;
-    }
-
-    .btn {
-      background: #ff4d6d;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 1rem;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .btn:hover {
-      background: #ff1f4a;
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>💖 I'm Sorry Babe 💖</h1>
-    <p>
-      I know I messed up...<br>
-      I'm really really sorry for hurting you 💔<br>
-      You mean the world to me and I hate making you sad.<br>
-      Please forgive me, my love 💕<br>
-      I promise to make it up to you, and love you even more 💗
-    </p>
-    <div class="buttons">
-      <button class="btn" onclick="acceptApology()">Accept Apologies 💌</button>
-      <button class="btn" onclick="rejectApology()">Don't Accept 😢</button>
+
+  <div class="heart-screen" id="heartScreen">
+    <div class="heart-logo">❤️</div>
+    <div class="click-text">Click the heart...</div>
+  </div>
+
+  <div class="page-container" id="pageContainer">
+    <div class="page" id="page1">
+      <h1>Hey love... 💔</h1>
+      <p>I know I’ve made mistakes... and I’m not proud of them.</p>
+    </div>
+    <div class="page" id="page2" style="display: none;">
+      <h1>But I’ve been thinking deeply 🧠</h1>
+      <p>I realize now how much you mean to me... and how much I hurt you.</p>
+    </div>
+    <div class="page" id="page3" style="display: none;">
+      <h1>I want to change, for us 💖</h1>
+      <p>This is not just an apology. It’s my promise to grow, to listen, to love better.</p>
+    </div>
+    <div class="page" id="page4" style="display: none;">
+      <h1>Would you... forgive me? 😔</h1>
+      <p>I’ll wait. With patience. With love. Because you matter to me — truly.</p>
+    </div>
+
+    <div style="text-align:center;">
+      <button class="next-button" id="nextBtn" onclick="nextPage()">Next 💌</button>
+      <button class="accept-button" id="acceptBtn">Accept Apologies ❤️</button>
     </div>
   </div>
 
-  <div class="hearts" id="hearts"></div>
+  <!-- Background music -->
+  <audio autoplay loop id="bgMusic">
+    <source src="https://www.bensound.com/bensound-music/bensound-sadday.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <script>
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.textContent = '💖';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = Math.random() * 20 + 20 + 'px';
-      document.getElementById('hearts').appendChild(heart);
+    document.addEventListener("DOMContentLoaded", function () {
+      // Floating hearts
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+        document.body.appendChild(heart);
+      }
 
-      setTimeout(() => {
-        heart.remove();
-      }, 6000);
-    }
+      // Logo heart click
+      document.querySelector(".heart-logo").addEventListener("click", function () {
+        document.getElementById("heartScreen").style.display = "none";
+        document.getElementById("pageContainer").style.display = "block";
+        document.getElementById("bgMusic").play();
+        showNextButtonWithDelay();
+      });
 
-    setInterval(createHeart, 300);
+      let currentPage = 1;
+      const totalPages = 4;
 
-    function acceptApology() {
-      window.location.href = 'https://wa.me/6283172467653?text=I%20accept%20your%20apology%20❤️';
-    }
+      function showNextButtonWithDelay() {
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('acceptBtn').style.display = 'none';
 
-    function rejectApology() {
-      alert("Sorry 😢 You should accept my apologies 😭");
-    }
+        setTimeout(() => {
+          if (currentPage === totalPages) {
+            document.getElementById('acceptBtn').style.display = 'inline-block';
+          } else {
+            document.getElementById('nextBtn').style.display = 'inline-block';
+          }
+        }, 5000); // delay 5 detik
+      }
+
+      window.nextPage = function () {
+        const current = document.getElementById("page" + currentPage);
+        current.style.display = "none";
+        currentPage++;
+        const next = document.getElementById("page" + currentPage);
+        if (next) {
+          next.style.display = "block";
+        }
+        showNextButtonWithDelay();
+      };
+
+      document.getElementById('acceptBtn').addEventListener("click", function () {
+        window.location.href = "https://wa.me/6283172467653?text=I%20accept%20your%20apology.%20Let%E2%80%99s%20talk.%20%E2%9D%A4";
+      });
+    });
   </script>
 </body>
-
 </html>
