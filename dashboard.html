@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KanjiQuiz - Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <header class="navbar">
+      <h2>KanjiQuiz Dashboard</h2>
+      <input type="text" placeholder="🔍 Cari kuis..." id="searchBar" />
+    </header>
+
+    <section class="menu-grid">
+      <div class="menu-card" onclick="navigate('folder')">
+        <div class="icon">📁</div>
+        <p>Folder Saya</p>
+      </div>
+      <div class="menu-card" onclick="navigate('list')">
+        <div class="icon">📝</div>
+        <p>List Saya</p>
+      </div>
+      <div class="menu-card" onclick="navigate('add')">
+        <div class="icon">➕</div>
+        <p>Tambah Kanji</p>
+      </div>
+      <div class="menu-card" onclick="navigate('premium')">
+        <div class="icon">💎</div>
+        <p>Paket Premium</p>
+      </div>
+    </section>
+
+    <section id="main-content" class="content-area"></section>
+  </div>
+
+  <!-- Guest Check -->
+  <script>
+    const isGuest = localStorage.getItem("isGuest") === "true";
+    if (isGuest) {
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelector("h2").innerHTML += " (Guest Mode)";
+        document.querySelectorAll(".menu-card")[2].style.display = "none"; // Tambah Kanji
+        document.querySelectorAll(".menu-card")[3].style.display = "none"; // Premium
+      });
+    }
+  </script>
+</body>
+</html>
